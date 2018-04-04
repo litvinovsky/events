@@ -3,6 +3,7 @@ class Batch < ApplicationRecord
 
   def add(event)
     raise "You are trying to add to already processed batch" if processed?
+    raise "You are trying to add to batch which is already full" if full?
 
     event.with_lock do
       return if event.batch_id
